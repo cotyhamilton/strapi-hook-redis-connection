@@ -3,6 +3,16 @@
 
 This hook connects to Redis and exposes the connection as a global service
 
+## Installation
+
+```shell
+$ yarn add strapi-hook-redis-connection
+
+# or
+
+$ npm i strapi-hook-redis-connection --save
+```
+
 ## Configuration
 
 To configure your hook with custom options, you need to edit your `./config/hook.json` file in your Strapi app.
