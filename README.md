@@ -22,9 +22,9 @@ To configure your hook with custom options, you need to edit your `./config/hook
   ...
   "redis-connection": {
     "enabled": true,
-    "host": "localhost",
-    "port": 6379,
-    "password": 'hunter42',
+    "host": "${process.env.REDIS_HOST || 'localhost'}",
+    "port": "${process.env.REDIS_PORT || 6379}",
+    "password": "${process.env.REDIS_PASSWORD || 'hunter42'}"
   }
 }
 ```
