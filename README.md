@@ -10,7 +10,7 @@ To configure your hook with custom options, you need to edit your `./config/hook
 ```javascript
 {
   ...
-  "redis": {
+  "redis-connection": {
     "enabled": true,
     "host": "localhost",
     "port": 6379,
