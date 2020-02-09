@@ -1,4 +1,5 @@
 # strapi-hook-redis-connection
+[![npm version](https://img.shields.io/npm/v/strapi-hook-redis-connection.svg)](https://www.npmjs.org/package/strapi-hook-redis-connection)
 
 This hook connects to Redis and exposes the connection as a global service
 
