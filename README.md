@@ -27,7 +27,7 @@ To configure your hook, you need to edit your `./config/hook.json` file in your 
     "password": "${process.env.REDIS_PASSWORD}",
     "family": "${process.env.REDIS_FAMILY}", // 4 (IPv4) or 6 (IPv6), Optional
     "db": "${process.env.REDIS_DB}", // Optional
-    "connectionString": "${process.env.REDIS_CONNECTIONSTRING}" // Optional, but has priority
+    "connectionString": "${process.env.REDIS_CONNECTIONSTRING}" // Optional, but overrides the other settings
   }
 }
 ```
