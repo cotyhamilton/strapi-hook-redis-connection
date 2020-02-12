@@ -15,16 +15,19 @@ $ npm i strapi-hook-redis-connection --save
 
 ## Configuration
 
-To configure your hook with custom options, you need to edit your `./config/hook.json` file in your Strapi app.
+To configure your hook, you need to edit your `./config/hook.json` file in your Strapi app.
 
 ```javascript
 {
   ...
   "redis-connection": {
     "enabled": true,
-    "host": "${process.env.REDIS_HOST || 'localhost'}",
-    "port": "${process.env.REDIS_PORT || 6379}",
-    "password": "${process.env.REDIS_PASSWORD || 'hunter42'}"
+    "host": "${process.env.REDIS_HOST}", // Redis host
+    "port": "${process.env.REDIS_PORT}",  // Redis port
+    "password": "${process.env.REDIS_PASSWORD}",
+    "family": "${process.env.REDIS_FAMILY}", // 4 (IPv4) or 6 (IPv6), Optional
+    "db": "${process.env.REDIS_DB}", // Optional
+    "connectionString": "${process.env.REDIS_CONNECTIONSTRING}" // Optional, but has priority
   }
 }
 ```
