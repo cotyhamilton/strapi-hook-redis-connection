@@ -1,0 +1,33 @@
+name: Publish Beta
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install
+      - run: npm test
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: yarn install
+      - run: npm version --no-git-tag-version $(npm view strapi-hook-redis-connection@beta version) --allow-same-version
+      - run: npm version --no-git-tag-version prerelease --preid=beta
+      - run: npm publish --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
