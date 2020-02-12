@@ -26,8 +26,23 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm version --no-git-tag-version $(npm view strapi-hook-redis-connection@beta version) --allow-same-version
-      - run: npm version --no-git-tag-version prerelease --preid=beta
-      - run: npm publish --tag beta
+      - name: Check latest package version
+        run: |
+          latest=$(npm view strapi-hook-redis-connection@latest version)
+          betaPlus=$(npm view strapi-hook-redis-connection@beta version)
+          beta="$(cut -d'-' -f1 <<<$betaPlus)"
+          echo "latest: $latest"
+          echo "beta: $beta"
+          if [ "$(printf '%s\n' "$latest" "$beta" | sort -V | tail -n1)" = "$latest" ]; then
+              echo "using latest as base version"
+              npm version --no-git-tag-version $(npm view strapi-hook-redis-connection@latest version) --allow-same-version
+          else
+              echo "using beta as base version"
+              npm version --no-git-tag-version $(npm view strapi-hook-redis-connection@beta version) --allow-same-version
+          fi
+      - name: Version Package
+        run: npm version --no-git-tag-version prerelease --preid=beta
+      - name: Publish Package
+        run: npm publish --access public --tag beta
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
