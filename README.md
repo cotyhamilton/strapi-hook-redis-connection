@@ -41,7 +41,7 @@ module.exports = {
   index: async (ctx) => {
     const redis = strapi.services.redis;
 
-    if (ctx.request.body.model) {
+    if (ctx.request.body.model && ctx.request.body.event) {
       redis.publish(ctx.request.body.model, ctx.request.body.event);
     }
 
