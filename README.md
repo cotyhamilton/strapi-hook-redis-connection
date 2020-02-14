@@ -15,7 +15,7 @@ $ npm i strapi-hook-redis-connection --save
 
 ## Configuration
 
-To configure the hook edit the `./config/hook.json` file in your Strapi app. The config object is passed to ioredis directly, consult ioredis docs for more info.
+To configure the hook edit the `./config/hook.json` file in your Strapi app. The `config` object is passed to ioredis directly, consult ioredis docs for more info.
 
 ```javascript
 {
