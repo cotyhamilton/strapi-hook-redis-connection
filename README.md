@@ -15,19 +15,29 @@ $ npm i strapi-hook-redis-connection --save
 
 ## Configuration
 
-To configure your hook, you need to edit your `./config/hook.json` file in your Strapi app.
+To configure the hook edit the `./config/hook.json` file in your Strapi app. The config object is passed to ioredis directly, consult ioredis docs for more info.
 
 ```javascript
 {
   ...
   "redis-connection": {
     "enabled": true,
-    "host": "${process.env.REDIS_HOST}", // Redis host
-    "port": "${process.env.REDIS_PORT}",  // Redis port
-    "password": "${process.env.REDIS_PASSWORD}",
-    "family": "${process.env.REDIS_FAMILY}", // 4 (IPv4) or 6 (IPv6), Optional
-    "db": "${process.env.REDIS_DB}", // Optional
-    "connectionString": "${process.env.REDIS_CONNECTIONSTRING}" // Optional, but overrides the other settings
+    "config": {
+      "host": "${process.env.REDIS_HOST}", // Redis host
+      "port": "${process.env.REDIS_PORT}",  // Redis port
+      "password": "${process.env.REDIS_PASSWORD}",
+      "family": "${process.env.REDIS_FAMILY}", // 4 (IPv4) or 6 (IPv6)
+      "db": "${process.env.REDIS_DB}"
+    }
+  }
+}
+
+{
+  ...
+  "redis-connection": {
+    "enabled": true,
+    // Connect to 127.0.0.1:6380, using password "authpassword"
+    "config": "redis://:authpassword@127.0.0.1:6380"
   }
 }
 ```
@@ -55,4 +65,5 @@ module.exports = {
 
 ## Resources
 
+- [ioredis](https://github.com/luin/ioredis)
 - [Strapi Documentation](https://strapi.io/documentation/3.0.0-beta.x/getting-started/introduction.html)
