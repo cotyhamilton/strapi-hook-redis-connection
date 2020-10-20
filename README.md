@@ -4,6 +4,8 @@
 
 This hook connects to Redis and exposes the connection as a global service through strapi. It uses the [ioredis](https://github.com/luin/ioredis) package
 
+This hook is compatible with the stable version (3.x) of Strapi only.
+
 ## Installation
 
 ```shell
@@ -16,31 +18,23 @@ $ npm i strapi-hook-redis-connection --save
 
 ## Configuration
 
-To configure the hook edit the `./config/hook.json` file in your Strapi app. The `config` object is passed to ioredis directly, consult ioredis docs for more info.
+To configure the hook edit or add the `./config/hook.js` file in your Strapi app. The `config` object is passed to ioredis directly, consult ioredis docs for more info.
 
 ```javascript
-{
-  ...
-  "redis-connection": {
-    "enabled": true,
-    "config": {
-      "host": "${process.env.REDIS_HOST}", // Redis host
-      "port": "${process.env.REDIS_PORT}",  // Redis port
-      "password": "${process.env.REDIS_PASSWORD}",
-      "family": "${process.env.REDIS_FAMILY}", // 4 (IPv4) or 6 (IPv6)
-      "db": "${process.env.REDIS_DB}"
-    }
-  }
-}
 
-{
-  ...
-  "redis-connection": {
-    "enabled": true,
-    // Connect to 127.0.0.1:6380, using password "authpassword"
-    "config": "redis://:authpassword@127.0.0.1:6380"
-  }
-}
+module.exports = ({ env }) => ({
+    timeout: 2000,
+    settings: {
+        'redis-connection': {
+            enabled: false,
+            config: {
+                host: env('REDIS_HOST', '127.0.0.1'), // Redis host
+                port: env.int('REDIS_PORT', 6379), // Redis port
+                password: env('REDIS_PASSWORD', '')
+            }
+        }
+    },
+});
 ```
 
 ## Usage
@@ -67,4 +61,4 @@ module.exports = {
 ## Resources
 
 - [ioredis](https://github.com/luin/ioredis)
-- [Strapi Documentation](https://strapi.io/documentation/3.0.0-beta.x/getting-started/introduction.html)
+- [Strapi Documentation](https://strapi.io/documentation/v3.x/getting-started/introduction.html)
